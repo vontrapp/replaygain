@@ -38,3 +38,9 @@ replaygain -t
 * one source, and flac files from another, but all from the same album.
 * It wouldn't necessarily make sense to calculate them as a single
 * album.
+
+When replaygain has a set of files in what it will consider an "album"
+and all files have homogeneous replaygain_album_* tags, then replaygain
+will skip them unless asked not to. It will also assume any existing
+replaygain_track_* tags are correct unless asked not to. Relevant flags
+to be determined.
