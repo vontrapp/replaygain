@@ -1,0 +1,40 @@
+Some more awesome players use a set of replaygain_* tags to adjust the
+playback volume on the fly - without the need to modify the audio data
+on disk.
+
+However, to create these tags, you have to use a different specialized
+tool for each different format. metaflac for flac files, vorbisgain for
+ogg, etc.
+
+This is just a wrapper script, in python, to call the various tools for
+each type, so you don't have to think about it.
+
+In the most simple case:
+replaygain
+will just take all taggable audio files in the current directory,
+calculate batch gain values and individual gain values, and save the
+tags into each file.
+
+More complex operations could include things like:
+
+replaygain -a
+* For each distinct album tag found on all input files, calculate a
+* separate batch album value for files with that album tag.
+
+replaygain -r -d
+* Find all files recursively under the given directory, calculate the
+* batch values grouped by directory.
+
+replaygain -r -a
+* like the previous, except keep track of ALL files found recursively,
+* their album tags, and the running batch average. Save it all at the
+* very end.
+
+replaygain *.flac
+* Only operate on the files given
+
+replaygain -t
+* Separate batch calculation by filetype - you might have mp3 files from
+* one source, and flac files from another, but all from the same album.
+* It wouldn't necessarily make sense to calculate them as a single
+* album.
