@@ -1,0 +1,7 @@
+#! /bin/env python
+
+# parse arguments
+# gather files
+# group into albums
+# calculate gains
+# apply tags

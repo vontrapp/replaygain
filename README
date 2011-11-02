@@ -1,6 +1,6 @@
 Some more awesome players use a set of replaygain_* tags to adjust the
 playback volume on the fly - without the need to modify the audio data
-on disk.
+on disk. It's completely lossless.
 
 However, to create these tags, you have to use a different specialized
 tool for each different format. metaflac for flac files, vorbisgain for
