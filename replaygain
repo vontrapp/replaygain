@@ -14,6 +14,7 @@ def analyze(sample_gen):
     pass in a generator that produces audio samples
     returns the maximum sample
     """
+    max_bucket = 1000
     max_sample = 0
     sample_bucket_left = []
     sample_bucket_right = []
@@ -23,10 +24,10 @@ def analyze(sample_gen):
         sample_bucket_left.append(left)
         sample_bucket_right.append(right)
         sample_count = sample_count + 1
-        if sample_count == 50:
-            left = (c_float * 50)(*sample_bucket_left)
-            right = (c_float * 50)(*sample_bucket_right)
-            replaygain.gain_analyze_samples(left, right, 50, 2)
+        if sample_count == max_bucket:
+            left = (c_float * max_bucket)(*sample_bucket_left)
+            right = (c_float * max_bucket)(*sample_bucket_right)
+            replaygain.gain_analyze_samples(left, right, max_bucket, 2)
             sample_bucket_left = []
             sample_bucket_right = []
             sample_count = 0
@@ -43,6 +44,6 @@ def analyze(sample_gen):
 import random
 
 replaygain.gain_init_analysis(44100)
-ms = analyze(([random.random() * (2 ** 15), random.random() * (2 ** 15)] for i in range(44100 * 60 * 3)))
-print "Peak value %f" % (ms / 2 ** 15)
+ms = analyze(([random.random(), random.random()] for i in range(44100 * 60 * 3)))
+print "Peak value %f" % (ms,)
 print "Recommended gain: %f dB" % replaygain.gain_get_chapter()
